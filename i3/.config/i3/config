@@ -143,7 +143,7 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
-bindsym $mod+l exec i3lock -i ~/.wallpaper_lock
+bindsym $mod+l exec i3lock -i ~/.wallpaper
 
 hide_edge_borders both
 
@@ -153,7 +153,8 @@ set $black "#000000"
 set $grey "#808080"
 set $white "#ffffff"
 
-set $menu_bg "#383c4a"
+#set $menu_bg "#383c4a"
+set $menu_bg "#000000"
 set $active "#d3dae3"
 
 # class                 border  	backgr		text    	indicator
