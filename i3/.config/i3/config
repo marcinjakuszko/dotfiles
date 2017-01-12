@@ -154,7 +154,7 @@ set $grey "#808080"
 set $white "#ffffff"
 
 #set $menu_bg "#383c4a"
-set $menu_bg "#000000"
+set $menu_bg "#3d3d3d"
 set $active "#d3dae3"
 
 # class                 border  	backgr		text    	indicator
