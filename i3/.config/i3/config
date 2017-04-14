@@ -9,13 +9,15 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
+set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 10
+font pango:Monaco 12
+for_window [class=".*"] title_format "<span font='Monaco 9'> > %title</span>"
+
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # The font above is very space-efficient, that is, it looks good, sharp and
@@ -87,6 +89,18 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+#assign workspace to monitor
+workspace 1 output DVI-I-1
+workspace 2 output DP-3
+workspace 3 output DVI-I-1
+workspace 4 output DP-3
+workspace 5 output DVI-I-1
+workspace 6 output DP-3
+workspace 7 output DVI-I-1
+workspace 8 output DP-3
+workspace 9 output DVI-I-1
+workspace 10 output DP-3
+
 # switch to workspace
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
@@ -143,46 +157,65 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
-bindsym $mod+l exec i3lock -i ~/.wallpaper
+bindsym $mod+l exec i3lock -i ~/.wallpaper -t
 
 hide_edge_borders both
 
-set $orange "#ff5700"
+
+set $active "#ff5700"
 set $red "#ff0000"
 set $black "#000000"
 set $grey "#808080"
 set $white "#ffffff"
 
-#set $menu_bg "#383c4a"
 set $menu_bg "#3d3d3d"
-set $active "#d3dae3"
 
 # class                 border  	backgr		text    	indicator
-client.focused          $menu_bg 	$menu_bg 	$orange 	$orange
+client.focused          $menu_bg 	$menu_bg 	$active 	$active
 client.focused_inactive	$menu_bg	$menu_bg	$grey		$grey
 client.unfocused	$menu_bg	$menu_bg	$grey		$grey
-client.urgent		$orange		$orange		$black		$orange
+client.urgent		$active		$active		$black		$active
 client.background	$black
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        position top
-	status_command i3status 
-
-	colors {
-	        background $menu_bg
-	        statusline $orange
-	        separator $orange
-		#colorclass             border		background	text					
-	        focused_workspace	$orange 	$orange		$menu_bg
-	        active_workspace	$orange 	$menu_bg	$orange
-	        inactive_workspace	$grey	 	$menu_bg	$grey
-	        urgent_workspace	$red 		$red 		$white
-    	}		
-}
+#bar {
+#	font pango: Monaco Light 9
+#        position top
+#	status_command i3status
+#
+#	colors {
+#	        background $menu_bg
+#	        statusline $active
+#	        separator $active
+#		#colorclass             border		background	text
+#	        focused_workspace	$active 	$active		$menu_bg
+#	        active_workspace	$active 	$menu_bg	$active
+#	        inactive_workspace	$grey	 	$menu_bg	$grey
+#	        urgent_workspace	$red 		$red 		$white
+#    	}
+#}
+exec_always /home/mj/.config/polybar/run_polybar.sh
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -nb $menu_bg -nf $grey -sb $orange -sf $white -fn -*-*-*-r-*-*-0-0-100-*-m-*-*-*
+#bindsym $mod+d exec dmenu_run -nb $menu_bg -nf $grey -sb $active -sf $white -fn -*-*-*-r-*-*-0-0-100-*-m-*-*-*
+
+#start rofi to open new program
+bindsym $mod+d exec rofi -show run -lines 5 -eh 2 -width 100 -padding "647" -opacity "80" -bw 0 -bc "$menu_bg" -bg "$menu_bg" -fg "$white" -hlbg "$menu_bg" -hlfg "$active" -font "Roboto Light 18"
+
+#start window switcher
+bindsym $mod+Tab exec rofi -show window -eh 2 -width 100 -padding "647" -opacity "80" -bw 0 -bc "$menu_bg" -bg "$menu_bg" -fg "$white" -hlfg "$active" -hlbg "$menu_bg" -font "Roboto Light 18" -fg-active "$white" -bg-active "$active" -hlbg-active "$menu_bg" -hlfg-active "$active"
+
 
 exec_always feh --bg-scale ~/.wallpaper
+exec compton 
+
+#Spotify - playerctl & class 
+bindsym $mod+F7 exec playerctl previous -p spotify
+bindsym $mod+F9 exec playerctl play-pause -p spotify
+bindsym $mod+F8 exec playerctl next -p spotify
+
+#Volume control
+bindsym $mod+F10 exec amixer set Master toggle
+bindsym $mod+F11 exec amixer set Master 1dB-
+bindsym $mod+F12 exec amixer set Master 1dB+
