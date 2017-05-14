@@ -49,7 +49,7 @@ font-0 = "Inconsolata:pixelsize=12;2"
 
 modules-left = i3
 modules-center = 
-modules-right = date
+modules-right = xkeyboard date
 
 tray-position = right
 tray-padding = 2
@@ -67,8 +67,8 @@ tray-padding = 2
 [bar/right]
 inherit=bar/left
 monitor = ${env:MONITOR:DP-3}
-padding-right= 2
 tray-position=
+
 
 
 [module/i3]
@@ -105,6 +105,9 @@ label-urgent = %index%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
+
+
+
 [module/date]
 type = internal/date
 interval = 5
@@ -115,6 +118,8 @@ date-alt = " %Y-%m-%d"
 time = %H:%M
 time-alt = %H:%M:%S
 label = %date% %time%
+label-padding = 2
+
 
 [module/volume]
 type = internal/volume
@@ -143,6 +148,20 @@ bar-volume-fill-font = 2
 bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
+
+
+[module/xkeyboard]
+type = internal/xkeyboard
+
+label-indicator-padding = 2
+label-indicator-margin = 0	
+label-indicator-background = ${colors.primary}
+label-indicator-foreground = ${colors.secondary}
+label-indicator-underline = ${colors.primary}
+
+label-layout = %layout%
+label-layout-underline = ${colors.secondary}
+label-layout-padding = 2
 
 
 
